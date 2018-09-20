@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@mipmap/account"
+            android:title="账号设置" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@mipmap/cart"
+            android:title="菜单管理" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@mipmap/comments"
+            android:title="消息提示" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@mipmap/download"
+            android:title="版本更新" />
+    </group>
+
+    <item android:title="账号切换">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@mipmap/all"
+                android:title="当前状态" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@mipmap/close"
+                android:title="退出登陆" />
+        </menu>
+    </item>
+
+</menu>
