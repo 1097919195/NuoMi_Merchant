@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.zzn.nuomimerchant">
+    package="com.example.zjl.nuomimerchant">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -12,6 +12,7 @@
 
     <!-- 阿里云推送相关权限 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -24,10 +25,11 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.REORDER_TASKS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
 
     <application
-        android:name=".application.MainApplication"
+        android:name="com.example.zjl.nuomimerchant.application.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/home_press"
         android:label="@string/app_name"
@@ -35,7 +37,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name="com.example.zjl.nuomimerchant.Main2Activity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,55 +45,102 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
 
+        <!--<activity-->
+        <!--android:name="com.example.zjl.nuomimerchant.Main2Activity"-->
+        <!--android:label="@string/app_name"-->
+        <!--android:theme="@style/AppTheme.NoActionBar" />-->
+        <activity android:name="com.example.zjl.nuomimerchant.AccountSettingsActivity" />
+        <activity android:name="com.example.zjl.nuomimerchant.MessagePromptActivity" />
+
+        <!--填写value的时候前往不要出现空格-->
         <meta-data
             android:name="com.alibaba.app.appkey"
-            android:value="24593528" /> <!-- 23357388 请填写你自己的- appKey -->
+            android:value="25084781" /> <!-- 23357388 请填写你自己的- appKey -->
         <meta-data
             android:name="com.alibaba.app.appsecret"
-            android:value="d66e033fe5309970f7292fa3dad77362" /> <!-- fedd4b71ea727e1d899aa7549c603ada 请填写你自己的appSecret -->
-
-
-        <!-- 消息接收监听器 （用户可自主扩展） -->
-        <receiver
-            android:name=".common.MyMessageReceiver"
-            android:exported="false">
-            <intent-filter>
-                 
-                <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
-            </intent-filter>
-            <intent-filter>
-                     
-                <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
-            </intent-filter>
-        </receiver>
+            android:value="cc5b3e528c217dc8279a2a07407838e7" /> <!-- fedd4b71ea727e1d899aa7549c603ada 请填写你自己的appSecret -->
 
         <service
-            android:name=".common.MyMessageIntentService"
+            android:name="com.example.zjl.nuomimerchant.common.MyMessageIntentService"
             android:exported="false">
             <intent-filter>
-                 
                 <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
             </intent-filter>
-            <intent-filter>
-                     
+
+            <intent-filter>   
                 <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
             </intent-filter>
         </service>
 
-        <activity
-            android:name=".Main2Activity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AccountSettingsActivity" />
-        <activity android:name=".MessagePromptActivity"></activity>
+        <!-- 通道保持服务 -->
+        <service
+            android:name="com.alibaba.sdk.android.push.ChannelService"
+            android:exported="true"
+            android:process=":channel">
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.SERVICE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.PING_V4" />
+                <category android:name="taobao" />
+            </intent-filter>
+        </service>
+        <!-- 消息接收服务 -->
+        <service
+            android:name="com.alibaba.sdk.android.push.MsgService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.RECEIVE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.NOTIFY_ACTION" />
+            </intent-filter>
+        </service>
+        <!-- 消息接收增强服务（可提高通知/消息达到率）-->
+        <service
+            android:name="com.alibaba.sdk.android.push.channel.TaobaoRecvService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="org.android.agoo.client.MessageReceiverService" />
+            </intent-filter>
+        </service>
+
+        <!--消息接收监听器-->
+        <receiver android:name="com.example.zjl.nuomimerchant.common.MyMessageReceiver">
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.COMMAND" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.taobao.taobao.intent.action.COMMAND" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
