@@ -34,7 +34,16 @@ public class LoginActivity extends AppCompatActivity {
         cloudPushService = PushServiceFactory.getCloudPushService();
         initView();
         init();
+        initDeviceId();
     }
+
+    //测试阿里云消息推送（根据设备发送通知时需要获取deviceid）
+    private void initDeviceId() {
+        CloudPushService pushService = PushServiceFactory.getCloudPushService();
+        String deviceId = pushService.getDeviceId();
+        Log.e(TAG, deviceId);
+    }
+
     private void initView() {
         username= (EditText) findViewById(R.id.edt_login_user);
         password= (EditText) findViewById(R.id.edt_login_password);
