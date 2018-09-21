@@ -98,9 +98,9 @@ public class LoginActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<MyResult> call, Throwable t) {
-                System.out.println("请求失败");
+                Log.e(TAG,"请求失败");
                 Toast.makeText(LoginActivity.this,"用户名密码错误",Toast.LENGTH_LONG).show();
-                System.out.print(t.getMessage());
+                System.err.print(t.getMessage());
             }
         });}
 

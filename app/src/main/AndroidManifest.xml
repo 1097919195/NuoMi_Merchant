@@ -37,7 +37,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.example.zjl.nuomimerchant.Main2Activity"
+            android:name="com.example.zjl.nuomimerchant.LoginActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,10 +46,10 @@
             </intent-filter>
         </activity>
 
-        <!--<activity-->
-        <!--android:name="com.example.zjl.nuomimerchant.Main2Activity"-->
-        <!--android:label="@string/app_name"-->
-        <!--android:theme="@style/AppTheme.NoActionBar" />-->
+        <activity
+            android:name="com.example.zjl.nuomimerchant.Main2Activity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.example.zjl.nuomimerchant.AccountSettingsActivity" />
         <activity android:name="com.example.zjl.nuomimerchant.MessagePromptActivity" />
 

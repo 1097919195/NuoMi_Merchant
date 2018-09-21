@@ -35,4 +35,10 @@ public interface MyApi {
     @POST("changeState.php")
     Call<MyResult> getState(@Field("state") String state
                             ,@Field("id") String id);
+
+    //我的服务器
+//    @FormUrlEncoded
+//    @POST("user/login")
+//    Call<MyResult> getUserinfo(@Field("account") String userid,
+//                               @Field("password") String password);
 }
