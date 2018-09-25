@@ -36,6 +36,8 @@ public class MainApplication extends Application {
             }
         });
 
+
+        //注意开启代码混淆的工程需要再proguard里配置
 //        MiPushRegister.register(applicationContext, "XIAOMI_ID", "XIAOMI_KEY"); // 初始化小米辅助推送
         HuaWeiRegister.register(applicationContext); // 接入华为辅助推送
 //        GcmRegister.register(applicationContext, "send_id", "application_id"); // 接入FCM/GCM初始化推送
